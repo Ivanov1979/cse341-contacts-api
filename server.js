@@ -13,6 +13,10 @@ app.use(express.json());
 app.use("/contacts", contactsRoutes);
 
 app.get("/", (req, res) => {
+    res.send("Welcome to the CSE341 Contacts API!");
+});
+
+app.get("/", (req, res) => {
     res.send("Contacts API is running");
 });
 
