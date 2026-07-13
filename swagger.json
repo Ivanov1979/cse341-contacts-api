@@ -1,0 +1,157 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CSE 341 Contacts API",
+        "version": "1.0.0",
+        "description": "REST API for managing contacts using Node.js, Express, and MongoDB."
+    },
+    "servers": [
+        {
+            "url": "https://cse341-contacts-api-wed8.onrender.com"
+        },
+        {
+            "url": "http://localhost:8080"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Contact": {
+                "type": "object",
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "favoriteColor",
+                    "birthday"
+                ],
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "example": "Ivan"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "example": "Sanhueza"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "ivan@example.com"
+                    },
+                    "favoriteColor": {
+                        "type": "string",
+                        "example": "Blue"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "example": "1979-05-01"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/contacts": {
+            "get": {
+                "summary": "Get all contacts",
+                "responses": {
+                    "200": {
+                        "description": "Contacts retrieved successfully"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new contact",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Contact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Contact created successfully"
+                    }
+                }
+            }
+        },
+        "/contacts/{id}": {
+            "get": {
+                "summary": "Get one contact by ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact retrieved successfully"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a contact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Contact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Contact updated successfully"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a contact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact deleted successfully"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            }
+        }
+    }
+}
